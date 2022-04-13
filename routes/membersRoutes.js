@@ -35,12 +35,21 @@ route.post("/", (req, res) => {
 });
 
 // update mamber
-route.get("/:id", (req, res) => {
+route.put("/:id", (req, res) => {
   // check if the member exists
   const found = members.some((member) => member.id === parseInt(req.params.id));
   if (found) {
+    const updateMember = req.body;
+    members.forEach((member) => {
+      if (member.id === parseInt(req.params.id)) {
+        member.name = updateMember.name ? updateMember.name : member.name;
+        member.email = updateMember.email ? updateMember.email : member.email;
+
+        res.json({ msg: "Member updated", member });
+      }
+    });
   } else {
-    res.status(400).json({ msg: `No member with the id of ${req.params.id}` });
+    res.json({ msg: `No member with the id of ${req.params.id}` });
   }
 });
 
