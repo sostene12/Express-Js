@@ -53,4 +53,20 @@ route.put("/:id", (req, res) => {
   }
 });
 
+// delete a member
+route.delete("/:id", (req, res) => {
+  // check if the member exists
+  const found = members.some((member) => member.id === parseInt(req.params.id));
+  if (found) {
+    res.json({
+      msg: "Member deleted",
+      members: members.filter(
+        (member) => member.id !== parseInt(req.params.id)
+      ),
+    });
+  } else {
+    res.status(400).json({ msg: `No member with the id of ${req.params.id}` });
+  }
+});
+
 module.exports = route;
