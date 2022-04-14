@@ -31,7 +31,8 @@ route.post("/", (req, res) => {
     return res.status(400).json({ msg: "please include name and email" });
   }
   members.push(newMember);
-  res.status(200).json(members);
+  // res.status(200).json(members);
+  res.redirect("/");
 });
 
 // update mamber
